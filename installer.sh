@@ -72,13 +72,13 @@ check_version() {
 }
 
 source_epirus() {
-  SOURCE_WEB3J="\n[ -s \"$HOME/.epirus/source.sh\" ] && source \"$HOME/.epirus/source.sh\""
+  SOURCE_EPIRUS="\n[ -s \"$HOME/.epirus/source.sh\" ] && source \"$HOME/.epirus/source.sh\""
   if [ -f "$HOME/.bashrc" ]; then
     bash_rc="$HOME/.bashrc"
     touch "${bash_rc}"
     if ! grep -qc '.epirus/source.sh' "${bash_rc}"; then
       echo "Adding source string to ${bash_rc}"
-      printf "${SOURCE_WEB3J}\n" >>"${bash_rc}"
+      printf "${SOURCE_EPIRUS}\n" >>"${bash_rc}"
     else
       echo "Skipped update of ${bash_rc} (source string already present)"
     fi
@@ -88,7 +88,7 @@ source_epirus() {
     touch "${bash_profile}"
     if ! grep -qc '.epirus/source.sh' "${bash_profile}"; then
       echo "Adding source string to ${bash_profile}"
-      printf "${SOURCE_WEB3J}\n" >>"${bash_profile}"
+      printf "${SOURCE_EPIRUS}\n" >>"${bash_profile}"
     else
       echo "Skipped update of ${bash_profile} (source string already present)"
     fi
@@ -98,7 +98,7 @@ source_epirus() {
     touch "${bash_login}"
     if ! grep -qc '.epirus/source.sh' "${bash_login}"; then
       echo "Adding source string to ${bash_login}"
-      printf "${SOURCE_WEB3J}\n" >>"${bash_login}"
+      printf "${SOURCE_EPIRUS}\n" >>"${bash_login}"
     else
       echo "Skipped update of ${bash_login} (source string already present)"
     fi
@@ -108,7 +108,7 @@ source_epirus() {
     touch "${profile}"
     if ! grep -qc '.epirus/source.sh' "${profile}"; then
       echo "Adding source string to ${profile}"
-      printf "$SOURCE_WEB3J\n" >>"${profile}"
+      printf "$SOURCE_EPIRUS\n" >>"${profile}"
     else
       echo "Skipped update of ${profile} (source string already present)"
     fi
@@ -119,7 +119,7 @@ source_epirus() {
     touch "${file}"
     if ! grep -qc '.epirus/source.sh' "${file}"; then
       echo "Adding source string to ${file}"
-      printf "$SOURCE_WEB3J\n" >>"${file}"
+      printf "$SOURCE_EPIRUS\n" >>"${file}"
     else
       echo "Skipped update of ${file} (source string already present)"
     fi
