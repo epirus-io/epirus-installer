@@ -1,0 +1,10 @@
+language: shell
+jdk: oraclejdk9
+
+os:
+  - linux
+  - osx
+  - windows
+
+script:
+  - ./test/test_epirus.sh
