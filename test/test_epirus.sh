@@ -6,7 +6,7 @@ if [ -f "C:\\windows\\system32\\drivers\\etc\\hosts" ]; then
   powershell -executionpolicy bypass .\\installer.ps1
   chmod +x ~/.epirus/*/bin/epirus.bat
 
-  ~/.web3j/*/bin/web3j.bat version
+  ~/.epirus/*/bin/epirus.bat version
   exit 0
 fi
 
@@ -19,4 +19,4 @@ echo "Content of bashrc:"
 cat ~/.bashrc
 echo "System path:"
 echo $PATH
-web3j version
+epirus version
