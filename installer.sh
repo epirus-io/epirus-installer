@@ -1,5 +1,5 @@
 #!/bin/sh
-epirus_version=${1:-$(curl https://internal.services.web3labs.com/api/versions/latest)}
+epirus_version=${1:-$(curl https://internal.services.web3labs.com/api/epirus/versions/latest)}
 installed_flag=0
 installed_version=""
 
