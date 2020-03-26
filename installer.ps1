@@ -4,7 +4,7 @@ $PSDefaultParameterValues['*:ErrorAction']='Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $ProgressPreference = 'SilentlyContinue'
 
-$epirus_version = $(Invoke-WebRequest -UseBasicParsing -Uri https://internal.services.web3labs.com/api/versions/latest).content
+$epirus_version = $(Invoke-WebRequest -UseBasicParsing -Uri https://internal.services.web3labs.com/api/epirus/versions/latest).content
 
 New-Item -Force -ItemType directory -Path "${env:USERPROFILE}\.epirus" | Out-Null
 $url = "https://github.com/epirus-io/epirus-cli/releases/download/v${epirus_version}/epirus-${epirus_version}.zip"
