@@ -32,14 +32,14 @@ setup_color() {
 install_epirus() {
   echo "Downloading Epirus ..."
   mkdir -p "$HOME/.epirus"
-  if [ "$(curl --write-out "%{http_code}" --silent --output /dev/null "https://github.com/epirus-io/epirus-cli/releases/download/v${epirus_version}/epirus-${epirus_version}.tar")" -eq 302 ]; then
-    curl -# -L -o "$HOME/.epirus/epirus-${epirus_version}.tar" "https://github.com/epirus-io/epirus-cli/releases/download/v${epirus_version}/epirus-${epirus_version}.tar"
+  if [ "$(curl --write-out "%{http_code}" --silent --output /dev/null "https://github.com/epirus-io/epirus-cli/releases/download/v${epirus_version}/epirus-cli-shadow-${epirus_version}.tar")" -eq 302 ]; then
+    curl -# -L -o "$HOME/.epirus/epirus-cli-shadow-${epirus_version}.tar" "https://github.com/epirus-io/epirus-cli/releases/download/v${epirus_version}/epirus-cli-shadow-${epirus_version}.tar"
     echo "Installing Epirus..."
-    tar -xf "$HOME/.epirus/epirus-${epirus_version}.tar" -C "$HOME/.epirus"
+    tar -xf "$HOME/.epirus/epirus-cli-shadow-${epirus_version}.tar" -C "$HOME/.epirus"
     echo "export PATH=\$PATH:$HOME/.epirus" >"$HOME/.epirus/source.sh"
     chmod +x "$HOME/.epirus/source.sh"
     echo "Removing downloaded archive..."
-    rm "$HOME/.epirus/epirus-${epirus_version}.tar"
+    rm "$HOME/.epirus/epirus-cli-shadow-${epirus_version}.tar"
   else
     echo "Looks like there was an error while trying to download epirus"
     exit 0
