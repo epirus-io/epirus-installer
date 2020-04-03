@@ -136,13 +136,13 @@ check_if_epirus_homebrew() {
 clean_up() {
   if [ -d "$HOME/.epirus" ]; then
     rm -f "$HOME/.epirus/source.sh"
-    rm -rf "$HOME/.epirus/epirus-$installed_version" >/dev/null 2>&1
+    rm -rf "$HOME/.epirus/epirus-cli-shadow-$installed_version" >/dev/null 2>&1
     echo "Deleting older installation ..."
   fi
 }
 
 completed() {
-  ln -sf "$HOME/.epirus/epirus-$epirus_version/bin/epirus" $HOME/.epirus/epirus
+  ln -sf "$HOME/.epirus/epirus-cli-shadow-$epirus_version/bin/epirus" $HOME/.epirus/epirus
   printf '\n'
   printf "$GREEN" 
   echo "Epirus was succesfully installed."
