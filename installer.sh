@@ -142,7 +142,8 @@ clean_up() {
 }
 
 completed() {
-  ln -sf "$HOME/.epirus/epirus-cli-shadow-$epirus_version/bin/epirus" $HOME/.epirus/epirus
+  cd "$HOME/.epirus"
+  ln -sf "epirus-cli-shadow-$epirus_version/bin/epirus" epirus
   printf '\n'
   printf "$GREEN" 
   echo "Epirus was succesfully installed."
@@ -155,8 +156,18 @@ completed() {
   exit 0
 }
 
+check_java_version() {
+  java_version=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
+  is_compatible=$(curl "https://internal.services.web3labs.com/api/epirus/compatibility/${java_version}")
+  if [ "$is_compatible" != "True" ]; then
+    echo "The Epirus CLI requires a Java version between 1.8 and 12. Please ensure you have a compatible Java version before installing Epirus for full functionality."
+    read -s -n 1 -p "Press any key to continue, or press Ctrl+C to cancel the installation." </dev/tty 
+  fi
+}
+
 main() {
   setup_color
+  check_java_version
   check_if_installed
   if [ $installed_flag -eq 1 ]; then
     check_if_epirus_homebrew
