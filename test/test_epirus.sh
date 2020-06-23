@@ -19,4 +19,4 @@ echo "Content of bashrc:"
 cat ~/.bashrc
 echo "System path:"
 echo $PATH
-epirus version
+epirus --version
