@@ -61,7 +61,7 @@ get_user_input() {
 }
 
 check_version() {
-  installed_version=$(epirus version | grep Version | awk -F" " '{print $NF}')
+  installed_version=$(epirus --version | grep Version | awk -F" " '{print $NF}')
   if [ "$installed_version" = "$epirus_version" ]; then
       echo "You have the latest version of Epirus (${installed_version}). Exiting."
       exit 0
