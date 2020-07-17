@@ -158,6 +158,7 @@ completed() {
 
 check_java_version() {
   java_version=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
+  echo "Your current java version is $java_version"
   is_compatible=$(curl "https://internal.services.web3labs.com/api/epirus/compatibility/${java_version}")
   if [ "$is_compatible" != "True" ]; then
     echo "The Epirus CLI requires a Java version between 1.8 and 12. Please ensure you have a compatible Java version before installing Epirus for full functionality."
