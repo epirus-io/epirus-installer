@@ -151,7 +151,7 @@ completed() {
   echo "source \$HOME/.epirus/source.sh"
   echo "When you open a new shell this will be performed automatically."
   echo "To see what epirus's CLI can do you can check the documentation bellow."
-  echo "https://docs.epirus.io/command_line_tools/ "
+  echo "https://docs.epirus.io/sdk/cli/"
   printf "$RESET" 
   exit 0
 }
