@@ -6,7 +6,7 @@ if [ -f "C:\\windows\\system32\\drivers\\etc\\hosts" ]; then
   powershell -executionpolicy bypass .\\installer.ps1
   chmod +x ~/.epirus/*/bin/epirus.bat
 
-  ~/.epirus/*/bin/epirus.bat version
+  ~/.epirus/*/bin/epirus.bat --version
   exit 0
 fi
 
