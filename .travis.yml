@@ -8,4 +8,4 @@ jobs:
     - os: windows
       
 script:
-  - ./test/test_epirus.sh
+  - ./test/test_web3j.sh
