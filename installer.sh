@@ -1,11 +1,11 @@
 #!/bin/sh
-epirus_version=${1:-$(curl https://internal.services.web3labs.com/api/epirus/versions/latest)}
+web3j_version=${1:-$(curl https://internal.services.web3labs.com/api/web3j/versions/latest)}
 installed_flag=0
 installed_version=""
 
 check_if_installed() {
-  if [ -x "$(command -v epirus)" ] >/dev/null 2>&1; then
-    printf 'An Epirus installation exists on your system.\n'
+  if [ -x "$(command -v web3j)" ] >/dev/null 2>&1; then
+    printf 'An Web3j installation exists on your system.\n'
     installed_flag=1
   fi
 }
@@ -29,31 +29,31 @@ setup_color() {
   fi
 }
 
-install_epirus() {
-  echo "Downloading Epirus ..."
-  mkdir -p "$HOME/.epirus"
-  if [ "$(curl --write-out "%{http_code}" --silent --output /dev/null "https://github.com/epirus-io/epirus-cli/releases/download/v${epirus_version}/epirus-cli-shadow-${epirus_version}.tar")" -eq 302 ]; then
-    curl -# -L -o "$HOME/.epirus/epirus-cli-shadow-${epirus_version}.tar" "https://github.com/epirus-io/epirus-cli/releases/download/v${epirus_version}/epirus-cli-shadow-${epirus_version}.tar"
-    echo "Installing Epirus..."
-    tar -xf "$HOME/.epirus/epirus-cli-shadow-${epirus_version}.tar" -C "$HOME/.epirus"
-    echo "export PATH=\$PATH:$HOME/.epirus" >"$HOME/.epirus/source.sh"
-    chmod +x "$HOME/.epirus/source.sh"
+install_web3j() {
+  echo "Downloading Web3j ..."
+  mkdir -p "$HOME/.web3j"
+  if [ "$(curl --write-out "%{http_code}" --silent --output /dev/null "https://github.com/web3j/web3j-cli/releases/download/v${web3j_version}/web3j-cli-shadow-${web3j_version}.tar")" -eq 302 ]; then
+    curl -# -L -o "$HOME/.web3j/web3j-cli-shadow-${web3j_version}.tar" "https://github.com/web3j/web3j-cli/releases/download/v${web3j_version}/web3j-cli-shadow-${web3j_version}.tar"
+    echo "Installing Web3j..."
+    tar -xf "$HOME/.web3j/web3j-cli-shadow-${web3j_version}.tar" -C "$HOME/.web3j"
+    echo "export PATH=\$PATH:$HOME/.web3j" >"$HOME/.web3j/source.sh"
+    chmod +x "$HOME/.web3j/source.sh"
     echo "Removing downloaded archive..."
-    rm "$HOME/.epirus/epirus-cli-shadow-${epirus_version}.tar"
+    rm "$HOME/.web3j/web3j-cli-shadow-${web3j_version}.tar"
   else
-    echo "Looks like there was an error while trying to download epirus"
+    echo "Looks like there was an error while trying to download web3j"
     exit 0
   fi
 }
 get_user_input() {
-  while echo "Would you like to update Epirus [Y/n]" && read -r user_input </dev/tty ; do
+  while echo "Would you like to update Web3j [Y/n]" && read -r user_input </dev/tty ; do
     case $user_input in
     n)
-      echo "Aborting instalation ..."
+      echo "Aborting installation ..."
       exit 0
       ;;
     *)
-       echo "Updating Epirus ..."
+       echo "Updating Web3j ..."
        break
        ;;
     esac
@@ -61,24 +61,24 @@ get_user_input() {
 }
 
 check_version() {
-  installed_version=$(epirus --version | grep Version | awk -F" " '{print $NF}')
-  if [ "$installed_version" = "$epirus_version" ]; then
-      echo "You have the latest version of Epirus (${installed_version}). Exiting."
+  installed_version=$(web3j --version | grep Version | awk -F" " '{print $NF}')
+  if [ "$installed_version" = "$web3j_version" ]; then
+      echo "You have the latest version of Web3j (${installed_version}). Exiting."
       exit 0
     else
-      echo "Your Epirus version is not up to date."
+      echo "Your Web3j version is not up to date."
       get_user_input
   fi
 }
 
-source_epirus() {
-  SOURCE_EPIRUS="\n[ -s \"$HOME/.epirus/source.sh\" ] && source \"$HOME/.epirus/source.sh\""
+source_web3j() {
+  SOURCE_Web3j="\n[ -s \"$HOME/.web3j/source.sh\" ] && source \"$HOME/.web3j/source.sh\""
   if [ -f "$HOME/.bashrc" ]; then
     bash_rc="$HOME/.bashrc"
     touch "${bash_rc}"
-    if ! grep -qc '.epirus/source.sh' "${bash_rc}"; then
+    if ! grep -qc '.web3j/source.sh' "${bash_rc}"; then
       echo "Adding source string to ${bash_rc}"
-      printf "${SOURCE_EPIRUS}\n" >>"${bash_rc}"
+      printf "${SOURCE_Web3j}\n" >>"${bash_rc}"
     else
       echo "Skipped update of ${bash_rc} (source string already present)"
     fi
@@ -86,9 +86,9 @@ source_epirus() {
   if [ -f "$HOME/.bash_profile" ]; then
     bash_profile="${HOME}/.bash_profile"
     touch "${bash_profile}"
-    if ! grep -qc '.epirus/source.sh' "${bash_profile}"; then
+    if ! grep -qc '.web3j/source.sh' "${bash_profile}"; then
       echo "Adding source string to ${bash_profile}"
-      printf "${SOURCE_EPIRUS}\n" >>"${bash_profile}"
+      printf "${SOURCE_Web3j}\n" >>"${bash_profile}"
     else
       echo "Skipped update of ${bash_profile} (source string already present)"
     fi
@@ -96,9 +96,9 @@ source_epirus() {
   if [ -f "$HOME/.bash_login" ]; then
     bash_login="$HOME/.bash_login"
     touch "${bash_login}"
-    if ! grep -qc '.epirus/source.sh' "${bash_login}"; then
+    if ! grep -qc '.web3j/source.sh' "${bash_login}"; then
       echo "Adding source string to ${bash_login}"
-      printf "${SOURCE_EPIRUS}\n" >>"${bash_login}"
+      printf "${SOURCE_Web3j}\n" >>"${bash_login}"
     else
       echo "Skipped update of ${bash_login} (source string already present)"
     fi
@@ -106,9 +106,9 @@ source_epirus() {
   if [ -f "$HOME/.profile" ]; then
     profile="$HOME/.profile"
     touch "${profile}"
-    if ! grep -qc '.epirus/source.sh' "${profile}"; then
+    if ! grep -qc '.web3j/source.sh' "${profile}"; then
       echo "Adding source string to ${profile}"
-      printf "$SOURCE_EPIRUS\n" >>"${profile}"
+      printf "$SOURCE_Web3j\n" >>"${profile}"
     else
       echo "Skipped update of ${profile} (source string already present)"
     fi
@@ -117,41 +117,41 @@ source_epirus() {
   if [ -f "$(command -v zsh 2>/dev/null)" ]; then
     file="$HOME/.zshrc"
     touch "${file}"
-    if ! grep -qc '.epirus/source.sh' "${file}"; then
+    if ! grep -qc '.web3j/source.sh' "${file}"; then
       echo "Adding source string to ${file}"
-      printf "$SOURCE_EPIRUS\n" >>"${file}"
+      printf "$SOURCE_Web3j\n" >>"${file}"
     else
       echo "Skipped update of ${file} (source string already present)"
     fi
   fi
 }
 
-check_if_epirus_homebrew() {
-  if (command -v brew && ! (brew info epirus 2>&1 | grep -e "Not installed\|No available formula") >/dev/null 2>&1); then
-    echo "Looks like Epirus is installed with Homebrew. Please use Homebrew to update. Exiting."
+check_if_web3j_homebrew() {
+  if (command -v brew && ! (brew info web3j 2>&1 | grep -e "Not installed\|No available formula") >/dev/null 2>&1); then
+    echo "Looks like Web3j is installed with Homebrew. Please use Homebrew to update. Exiting."
     exit 0
   fi
 }
 
 clean_up() {
-  if [ -d "$HOME/.epirus" ]; then
-    rm -f "$HOME/.epirus/source.sh"
-    rm -rf "$HOME/.epirus/epirus-cli-shadow-$installed_version" >/dev/null 2>&1
+  if [ -d "$HOME/.web3j" ]; then
+    rm -f "$HOME/.web3j/source.sh"
+    rm -rf "$HOME/.web3j/web3j-cli-shadow-$installed_version" >/dev/null 2>&1
     echo "Deleting older installation ..."
   fi
 }
 
 completed() {
-  cd "$HOME/.epirus"
-  ln -sf "epirus-cli-shadow-$epirus_version/bin/epirus" epirus
+  cd "$HOME/.web3j"
+  ln -sf "web3j-cli-shadow-$web3j_version/bin/web3j" web3j
   printf '\n'
   printf "$GREEN" 
-  echo "Epirus was succesfully installed."
-  echo "To use epirus in your current shell run:"
-  echo "source \$HOME/.epirus/source.sh"
+  echo "Web3j was successfully installed."
+  echo "To use web3j in your current shell run:"
+  echo "source \$HOME/.web3j/source.sh"
   echo "When you open a new shell this will be performed automatically."
-  echo "To see what epirus's CLI can do you can check the documentation bellow."
-  echo "https://docs.epirus.io/sdk/cli/"
+  echo "To see what Web3j's CLI can do you can check the documentation bellow."
+  echo "https://docs.web3j.io/cli/"
   printf "$RESET" 
   exit 0
 }
@@ -159,9 +159,9 @@ completed() {
 check_java_version() {
   java_version=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
   echo "Your current java version is ${java_version}"
-  is_compatible=$(curl "https://internal.services.web3labs.com/api/epirus/compatibility/${java_version}")
+  is_compatible=$(curl "https://internal.services.web3labs.com/api/web3j/compatibility/${java_version}")
   if [ "$is_compatible" != "True" ]; then
-    echo "The Epirus CLI requires a Java version between 1.8 and 12. Please ensure you have a compatible Java version before installing Epirus for full functionality."
+    echo "The Web3j CLI requires a Java version between 1.8 and 12. Please ensure you have a compatible Java version before installing Web3j for full functionality."
     read -s -n 1 -p "Press any key to continue, or press Ctrl+C to cancel the installation." </dev/tty 
   fi
 }
@@ -171,15 +171,15 @@ main() {
   check_java_version
   check_if_installed
   if [ $installed_flag -eq 1 ]; then
-    check_if_epirus_homebrew
+    check_if_web3j_homebrew
     check_version
     clean_up
-    install_epirus
-    source_epirus
+    install_web3j
+    source_web3j
     completed
   else
-    install_epirus
-    source_epirus
+    install_web3j
+    source_web3j
     completed    
   fi
 }
