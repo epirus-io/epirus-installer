@@ -4,7 +4,7 @@ $PSDefaultParameterValues['*:ErrorAction']='Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $ProgressPreference = 'SilentlyContinue'
 
-$web3j_version = $(Invoke-WebRequest -UseBasicParsing -Uri https://internal.services.web3labs.com/api/web3j/versions/latest).content
+$web3j_version = $(Invoke-WebRequest -UseBasicParsing -Uri https://internal.services.web3labs.com/api/epirus/versions/latest).content
 
 New-Item -Force -ItemType directory -Path "${env:USERPROFILE}\.web3j" | Out-Null
 $url = "https://github.com/web3j/web3j-cli/releases/download/v${web3j_version}/web3j-cli-shadow-${web3j_version}.zip"

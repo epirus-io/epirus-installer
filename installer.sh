@@ -1,5 +1,5 @@
 #!/bin/sh
-web3j_version=${1:-$(curl https://internal.services.web3labs.com/api/web3j/versions/latest)}
+web3j_version=${1:-$(curl https://internal.services.web3labs.com/api/epirus/versions/latest)}
 installed_flag=0
 installed_version=""
 
@@ -35,6 +35,7 @@ install_web3j() {
   if [ "$(curl --write-out "%{http_code}" --silent --output /dev/null "https://github.com/web3j/web3j-cli/releases/download/v${web3j_version}/web3j-cli-shadow-${web3j_version}.tar")" -eq 302 ]; then
     curl -# -L -o "$HOME/.web3j/web3j-cli-shadow-${web3j_version}.tar" "https://github.com/web3j/web3j-cli/releases/download/v${web3j_version}/web3j-cli-shadow-${web3j_version}.tar"
     echo "Installing Web3j..."
+    echo "https://github.com/web3j/web3j-cli/releases/download/v${web3j_version}/web3j-cli-shadow-${web3j_version}.tar"
     tar -xf "$HOME/.web3j/web3j-cli-shadow-${web3j_version}.tar" -C "$HOME/.web3j"
     echo "export PATH=\$PATH:$HOME/.web3j" >"$HOME/.web3j/source.sh"
     chmod +x "$HOME/.web3j/source.sh"
@@ -159,7 +160,7 @@ completed() {
 check_java_version() {
   java_version=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
   echo "Your current java version is ${java_version}"
-  is_compatible=$(curl "https://internal.services.web3labs.com/api/web3j/compatibility/${java_version}")
+  is_compatible=$(curl "https://internal.services.web3labs.com/api/epirus/compatibility/${java_version}")
   if [ "$is_compatible" != "True" ]; then
     echo "The Web3j CLI requires a Java version between 1.8 and 12. Please ensure you have a compatible Java version before installing Web3j for full functionality."
     read -s -n 1 -p "Press any key to continue, or press Ctrl+C to cancel the installation." </dev/tty 
