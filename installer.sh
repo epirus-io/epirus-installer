@@ -152,7 +152,7 @@ completed() {
   echo "source \$HOME/.web3j/source.sh"
   echo "When you open a new shell this will be performed automatically."
   echo "To see what Web3j's CLI can do you can check the documentation bellow."
-  echo "https://docs.web3j.io/cli/"
+  echo "https://docs.web3j.io/latest/command_line_tools/"
   printf "$RESET" 
   exit 0
 }
