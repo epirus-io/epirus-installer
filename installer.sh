@@ -1,5 +1,5 @@
 #!/bin/sh
-web3j_version=${1:-$(curl https://internal.services.web3labs.com/api/epirus/versions/latest)}
+web3j_version=1.4.2
 installed_flag=0
 installed_version=""
 
