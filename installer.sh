@@ -1,5 +1,6 @@
 #!/bin/sh
-web3j_version=${1:-$(curl --silent "https://api.github.com/repos/web3j/web3j-cli/releases/latest" | jq -r .tag_name)}
+tag_name=$(curl --silent "https://api.github.com/repos/web3j/web3j-cli/releases/latest" | jq -r .tag_name)
+web3j_version=${tag_name:1}
 installed_flag=0
 installed_version=""
 
