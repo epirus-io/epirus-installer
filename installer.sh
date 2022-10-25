@@ -1,6 +1,6 @@
 #!/bin/sh
 tag_name=$(curl --silent "https://api.github.com/repos/web3j/web3j-cli/releases/latest" | jq -r .tag_name)
-web3j_version=$(echo $tmpv | sed 's/v//')
+web3j_version=$(echo $tag_name | sed 's/v//')
 installed_flag=0
 installed_version=""
 
